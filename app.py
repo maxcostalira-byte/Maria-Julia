@@ -52,6 +52,26 @@ COPY = {
         {"nome": "Guia de Precificação Lucrativa", "valor": "R$ 197,00"},
         {"nome": "Comunidade Exclusiva de Alunas", "valor": "Inestimável"}
     ],
+    "DEPOIMENTOS": [
+        {
+            "nome": "Dra. Juliana Mendes",
+            "cargo": "Dermatologista",
+            "texto": "Sempre tive receio de entregar resultados artificiais, mas o método da Dra. Beatriz foca na naturalidade que minhas pacientes buscam. O módulo de anatomia aplicada é o mais completo que já vi. Recuperei o investimento do curso no meu primeiro procedimento pós-treinamento!",
+            "foto": "https://via.placeholder.com/100?text=JM"
+        },
+        {
+            "nome": "Dra. Carla Souza",
+            "cargo": "Cirurgiã-Dentista",
+            "texto": "O que mais me impressionou foi a segurança transmitida. O suporte para intercorrências me deu a confiança que faltava para realizar procedimentos mais complexos. Hoje minha agenda de harmonização está lotada com 3 semanas de antecedência.",
+            "foto": "https://via.placeholder.com/100?text=CS"
+        },
+        {
+            "nome": "Dra. Fernanda Lima",
+            "cargo": "Biomédica Esteta",
+            "texto": "As aulas práticas são extremamente detalhadas. Parece que estamos ao lado da professora na clínica. Os bônus de precificação e fotografia clínica foram o diferencial para eu profissionalizar meu atendimento e aumentar meu ticket médio.",
+            "foto": "https://via.placeholder.com/100?text=FL"
+        }
+    ],
     "FAQ": [
         {"q": "Para quem é este curso?", "a": "Para profissionais da saúde que desejam ingressar ou se aperfeiçoar na harmonização facial."},
         {"q": "Tenho acesso por quanto tempo?", "a": "O acesso é vitalício, incluindo todas as atualizações futuras."},
@@ -179,21 +199,38 @@ def section_benefits():
 
 def section_social_proof():
     st.markdown("## O que nossas alunas dizem")
-    proofs = [
-        {"nome": "M.S.", "cidade": "São Paulo/SP", "texto": "O curso mudou minha forma de ver a harmonização. Resultados muito mais naturais!"},
-        {"nome": "A.C.", "cidade": "Curitiba/PR", "texto": "A segurança que a Dra. Beatriz passa é incrível. Me sinto pronta para atender."},
-        {"nome": "R.F.", "cidade": "Belo Horizonte/MG", "texto": "Melhor investimento que fiz este ano. O módulo de intercorrências vale ouro."},
-        {"nome": "L.P.", "cidade": "Rio de Janeiro/RJ", "texto": "Didática impecável. As aulas práticas são muito detalhadas."},
-        {"nome": "S.G.", "cidade": "Salvador/BA", "texto": "Suporte maravilhoso. Nunca me senti sozinha durante o aprendizado."},
-        {"nome": "K.V.", "cidade": "Porto Alegre/RS", "texto": "Material de apoio excelente. Uso as fichas de anamnese todos os dias."}
-    ]
+    
+    # Depoimentos Detalhados (Novos)
     cols = st.columns(3)
-    for i, p in enumerate(proofs):
-        with cols[i % 3]:
+    for i, dep in enumerate(COPY['DEPOIMENTOS']):
+        with cols[i]:
             st.markdown(f"""
-                <div style="font-style: italic; padding: 15px; border-bottom: 1px solid #eee;">
-                    "{p['texto']}"<br>
-                    <strong>- {p['nome']} ({p['cidade']})</strong>
+                <div class="card" style="height: 100%;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <img src="{dep['foto']}" style="border-radius: 50%; width: 60px; margin-right: 15px;">
+                        <div>
+                            <strong style="color: {CONFIG['CORES']['PRIMARIA']};">{dep['nome']}</strong><br>
+                            <small>{dep['cargo']}</small>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; font-size: 0.95rem;">"{dep['texto']}"</p>
+                </div>
+            """, unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Depoimentos Rápidos (Placeholders anteriores)
+    proofs = [
+        {"nome": "M.S.", "cidade": "São Paulo/SP", "texto": "Resultados muito mais naturais!"},
+        {"nome": "A.C.", "cidade": "Curitiba/PR", "texto": "Me sinto pronta para atender."},
+        {"nome": "R.F.", "cidade": "Belo Horizonte/MG", "texto": "O módulo de intercorrências vale ouro."}
+    ]
+    cols_small = st.columns(3)
+    for i, p in enumerate(proofs):
+        with cols_small[i]:
+            st.markdown(f"""
+                <div style="font-style: italic; padding: 10px; border-left: 3px solid {CONFIG['CORES']['ACENTO']}; background: #f9f9f9; font-size: 0.85rem;">
+                    "{p['texto']}" - <strong>{p['nome']}</strong>
                 </div>
             """, unsafe_allow_html=True)
 
